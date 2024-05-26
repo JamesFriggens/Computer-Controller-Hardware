@@ -5,9 +5,9 @@
 #define TX_PIN 0
 
 // Button pins
-#define BUTTON1_PIN 13
+#define BUTTON1_PIN 15
 #define BUTTON2_PIN 14
-#define BUTTON3_PIN 15
+#define BUTTON3_PIN 13
 
 String ssid = "";
 String password = "";
@@ -41,19 +41,19 @@ void setup() {
 void loop() {
   if (digitalRead(BUTTON1_PIN) == LOW) {
     Serial.println("Button 1 pressed");
-    sendMessage("Button 1 pressed");
+    sendMessage("1");
     delay(200); // debounce
   }
 
   if (digitalRead(BUTTON2_PIN) == LOW) {
     Serial.println("Button 2 pressed");
-    sendMessage("Button 2 pressed");
+    sendMessage("2");
     delay(200);
   }
 
   if (digitalRead(BUTTON3_PIN) == LOW) {
     Serial.println("Button 3 pressed");
-    sendMessage("Button 3 pressed");
+    sendMessage("3");
     delay(200);
   }
 
