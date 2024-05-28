@@ -16,11 +16,12 @@ String host = ""; // Replace with your server's IP or domain name
 int port = 10001;
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   // Start communication with the Pico
   Serial.begin(115200);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB
-  }
+  // while (!Serial) {
+  //   ; // wait for serial port to connect. Needed for native USB
+  // }
   Serial.println("Serial communication started.");
 
   // Start communication with the ESP8266
@@ -36,22 +37,27 @@ void setup() {
   pinMode(BUTTON1_PIN, INPUT_PULLUP);
   pinMode(BUTTON2_PIN, INPUT_PULLUP);
   pinMode(BUTTON3_PIN, INPUT_PULLUP);
+
+  digitalWrite(LED_BUILTIN, HIGH);
 }
 
 void loop() {
   if (digitalRead(BUTTON1_PIN) == LOW) {
+    digitalWrite(LED_BUILTIN, LOW);
     Serial.println("Button 1 pressed");
     sendMessage("1");
     delay(200); // debounce
   }
 
   if (digitalRead(BUTTON2_PIN) == LOW) {
+    digitalWrite(LED_BUILTIN, LOW);
     Serial.println("Button 2 pressed");
     sendMessage("2");
     delay(200);
   }
 
   if (digitalRead(BUTTON3_PIN) == LOW) {
+    digitalWrite(LED_BUILTIN, LOW);
     Serial.println("Button 3 pressed");
     sendMessage("3");
     delay(200);
