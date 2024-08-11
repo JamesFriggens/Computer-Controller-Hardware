@@ -38,29 +38,32 @@ void setup() {
   pinMode(BUTTON2_PIN, INPUT_PULLUP);
   pinMode(BUTTON3_PIN, INPUT_PULLUP);
 
-  digitalWrite(LED_BUILTIN, HIGH);
+  digitalWrite(LED_BUILTIN, LOW);
 }
 
 void loop() {
   if (digitalRead(BUTTON1_PIN) == LOW) {
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
     Serial.println("Button 1 pressed");
     sendMessage("1");
     delay(200); // debounce
+    digitalWrite(LED_BUILTIN, LOW);
   }
 
   if (digitalRead(BUTTON2_PIN) == LOW) {
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
     Serial.println("Button 2 pressed");
     sendMessage("2");
     delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
   }
 
   if (digitalRead(BUTTON3_PIN) == LOW) {
-    digitalWrite(LED_BUILTIN, LOW);
+    digitalWrite(LED_BUILTIN, HIGH);
     Serial.println("Button 3 pressed");
     sendMessage("3");
     delay(200);
+    digitalWrite(LED_BUILTIN, LOW);
   }
 
   // Check for incoming data from ESP8266
@@ -120,3 +123,11 @@ void sendMessage(String message) {
     Serial.println("Error starting TCP connection");
   }
 }
+
+// void buttonPress(int buttonPin){
+//   digitalWrite(LED_BUILTIN, HIGH);
+//   Serial.println("Button" + buttonPin + "pressed");
+//   sendMessage((String)buttonPin);
+//   delay(200);
+//   digitalWrite(LED_BUILTIN, LOW);
+// }
