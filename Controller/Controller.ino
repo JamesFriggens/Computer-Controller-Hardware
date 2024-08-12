@@ -1,27 +1,25 @@
+#include "arduino_secrets.h"
+
 #define ESP8266_BAUD 115200
 
 // Use Serial1 on the Pico for communication with the ESP8266
 #define RX_PIN 1
 #define TX_PIN 0
 
-// Button pins
 #define BUTTON1_PIN 15
 #define BUTTON2_PIN 14
 #define BUTTON3_PIN 13
 
-String ssid = "";
-String password = "";
-
-String host = ""; // Replace with your server's IP or domain name
+// WiFi SSID, PASSWORD, and IP Address respectively
+//String SSID = "";
+//String PASSWORD = "";
+//String HOST = "";
 int port = 10001;
 
 void setup() {
+
   pinMode(LED_BUILTIN, OUTPUT);
-  // Start communication with the Pico
   Serial.begin(115200);
-  // while (!Serial) {
-  //   ; // wait for serial port to connect. Needed for native USB
-  // }
   Serial.println("Serial communication started.");
 
   // Start communication with the ESP8266
@@ -31,7 +29,7 @@ void setup() {
   // Initialize ESP8266
   sendCommand("AT", 2000, "OK");
   sendCommand("AT+CWMODE=1", 2000, "OK");
-  sendCommand("AT+CWJAP=\"" + ssid + "\",\"" + password + "\"", 10000, "OK");
+  sendCommand("AT+CWJAP=\"" + String(SSID) + "\",\"" + String(PASSWORD) + "\"", 10000, "OK");
 
   // Initialize buttons as input with pull-up resistors
   pinMode(BUTTON1_PIN, INPUT_PULLUP);
@@ -106,7 +104,7 @@ bool sendCommand(String command, int maxTime, char readReplay[]) {
 }
 
 void sendMessage(String message) {
-  if (sendCommand("AT+CIPSTART=\"TCP\",\"" + host + "\"," + port, 10000, "OK")) {
+  if (sendCommand("AT+CIPSTART=\"TCP\",\"" + String(HOST) + "\"," + port, 10000, "OK")) {
     String sendCmd = "AT+CIPSEND=" + String(message.length());
     if (sendCommand(sendCmd, 2000, ">")) {
       Serial1.print(message);
